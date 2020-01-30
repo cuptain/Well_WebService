@@ -1,0 +1,81 @@
+﻿@model TestTask_V1336.Models.Well
+
+@{
+    ViewBag.Title = "Удаление скважины";
+}
+
+<h2>Удаление скважины</h2>
+
+<h3>Вы уверены, что хотите удалить данную скважину?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            Название:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Название куста:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Group)
+        </dd>
+
+        <dt>
+            Месторождение:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field)
+        </dd>
+
+        <dt>
+            ЦДНГ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Factory)
+        </dd>
+
+        <dt>
+            ID Контроллера:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ControllerId)
+        </dd>
+
+        <dt>
+            Тип эксплуатации:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OperationType)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Да, удалить" class="btn btn-danger" /> |
+            @Html.ActionLink("Нет, вернуться назад", "WellList", "Well")
+        </div>
+    }
+</div>

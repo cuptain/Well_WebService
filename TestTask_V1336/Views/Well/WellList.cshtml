@@ -1,0 +1,86 @@
+﻿@using TestTask_V1336.Models
+@model  TestTask_V1336.Models.ViewModels.WellSearchModel
+@{
+    ViewBag.Title = "Скважины";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+@using (Html.BeginForm("WellList", "Well", FormMethod.Post))
+{
+    @*@Html.ValidationSummary()
+    @Html.AntiForgeryToken()*@
+    <h2>Скважины</h2>
+    <hr />
+    <body>
+        <div class="row">
+            <iv class="col-md-2">
+                @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-1" })
+            </iv>
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
+            </div>
+            <iv class="col-md-2">
+                @Html.LabelFor(model => model.ControllerID, htmlAttributes: new { @class = "control-label col-md-1" })
+            </iv>
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.ControllerID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ControllerID, "", new { @class = "text-danger" })
+            </div>
+            <iv class="col-md-2">
+                @Html.LabelFor(model => model.OperTypes, htmlAttributes: new { @class = "control-label col-md-1" })
+            </iv>
+            <div class="col-md-2">
+                @Html.DropDownListFor(model => model.OperTypes, new SelectList(ViewBag.OperTypes), "", htmlAttributes: new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(model => model.OperTypes, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="col-md-2" allign="right">
+                <a class="btn btn-success" href="@Url.Action("WellCreate")">
+                    +Добавить
+                </a>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <input type="submit" value="Поиск" class="btn btn-primary" />
+        </div>
+        <hr />
+        <table class="table table-hover">
+            <thead class="thead-inverse">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Куст</th>
+                    <th scope="col">Месторождение</th>
+                    <th scope="col">Цех</th>
+                    <th scope="col">ID Контроллера</th>
+                    <th scope="col">Тип эксплуатации</th>
+                </tr>
+            </thead>
+            @foreach (Well well in (List<Well>)ViewData["Wells"])
+            {
+                <tr>
+                    <th scope="row">@well.Id</th>
+                    <td width="200">@well.Name</td>
+                    <td width="200">@well.Group</td>
+                    <td width="150">@well.Field</td>
+                    <td width="150">@well.Factory</td>
+                    <td width="100">@well.ControllerId</td>
+                    <td width="100">@well.OperationType</td>
+                    <td>
+                        @Html.ActionLink("Подробно", "WellDetails", new { id = well.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Редактировать", "WellEdit", new { id = well.Id }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Удалить", "WellDelete", "Well", new { id = well.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </table>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>
+            $('.dropdown-toggle').dropdown()
+        </script>
+    </body>
+}
